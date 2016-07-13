@@ -1,7 +1,7 @@
 #Folder that contains CSVs to be visualized
 rm()
 library(Cairo)
-res_folder <- "/mnt/sc/H"
+res_folder <- "/mnt/sc/S"
 files <- list.files(path=res_folder, full.names=T, recursive=FALSE, pattern="\\.csv$")
 
 files <- files[-grep("dta",files)]
@@ -93,7 +93,7 @@ viz.sims <- function(results, varH, mtitle, pre="")
 
 viz.list=c("nrandom","beta", "tree_split_lim", "caliper", "spill.magnitude", "spill.vrange", "var1.vrange", "trt_spill_sill", "tree_thresh", "trt_prc", "thresh_est")
 
-viz.list=c("trt_prc", "beta", "spill.magnitude", "caliper", "tree_thresh", "thresh_est", "trtcon_overlap")
+viz.list=c("trt_prc", "spill.magnitude", "caliper", "tree_thresh", "thresh_est", "trtcon_overlap")
 
 for(type in viz.list)
 {

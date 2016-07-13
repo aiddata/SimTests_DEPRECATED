@@ -25,7 +25,7 @@ sourceCpp(paste(path_base, "demo/splitc.cpp", sep=""))
 CT_src <- paste(path_base, "demo/CT_functions.R", sep="")
 TOT_src <- paste(path_base, "demo/TOT_functions.R", sep="")
 sim_src <- paste(path_base, "demo/simulation_spatial_data.R", sep="")
-map_out <- "/sciclone/home00/geogdan/jM/"
+map_out <- "/sciclone/home00/geogdan/M2/"
 
 Sys.setenv("PKG_CXXFLAGS"="-fopenmp")
 Sys.setenv("PKG_LIBS"="-fopenmp")
@@ -131,6 +131,7 @@ treatment.predictions@data$baseline.lm <- summary(baseline)$coefficients[2] *
 # -----------------------------------------------------------------------------
 # Basic PSM Matching Estimate
 # -----------------------------------------------------------------------------
+print("Basic")
 baseline.matchit <- matchit(treatment.status ~ modelVar, data= model_dta@data,
                             method="nearest", distance="logit",
                             caliper=cal, calclosest=FALSE, calrandom=FALSE)
@@ -147,7 +148,8 @@ treatment.predictions@data$baseline.matchit <-
 # Spatial PSM Matching Estimate
 # Note this is a best case for Spatial PSM, as we give the true vrange.
 # -----------------------------------------------------------------------------
-
+print("Spatial")
+vcut = 50000
 spatial.opts <- list(decay.model = "threshold",
                      threshold = vcut)
 
@@ -167,6 +169,7 @@ treatment.predictions@data$spatialPSM <-
 # GWR with MatchIt
 #Note this is a best case for GWR, as we give it the true range.
 # -----------------------------------------------------------------------------
+print("GWR")
 treatment.predictions@data$gwr <- NA
 sum_trt <- 0
 cnt_trt <- 0
@@ -180,7 +183,7 @@ for (i in 1:length(treatment.predictions))
   
   mod_it_dfa <- it_dfa[,names(it_dfa@data) %in% c("treatment.status", "modelVar", "modelOutcome")]
   
-
+print("TryCatch")
   result = tryCatch(
 
     gwr.matchit <- matchit(treatment.status ~ modelVar, data= mod_it_dfa@data,
@@ -397,10 +400,10 @@ results["trtcon_overlap"][1,] <- trtcon_overlap
  
  
  #Make the treated areas more evident
- map_trt@data$treatment.status <- map_trt@data$treatment.status * 99
+ map_trt@data$treatment.status <- map_trt@data$treatment.status * beta * theta
  
  pal = brewer.pal(9,"Greens")
- brks = c(0.0,0.75,1.25,1.5,1.75,2.0,2.5,100)
+ brks = c(0.0,0.95,1.0,1.05,1.1,1.15,1.2,100)
 map_out_path <- paste(map_out, "vsm",version, "_", spill.magnitude, ".png", sep="")
 map_html_path <- paste("vsm",version, "_", spill.magnitude, ".png", sep="")
 html_out_path <- paste("vsm",version, "_", spill.magnitude, sep="")

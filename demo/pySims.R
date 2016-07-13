@@ -23,7 +23,7 @@ Sys.setenv("PKG_LIBS"="-fopenmp")
 sourceCpp(paste(path_base, "demo/splitc.cpp", sep=""))
 CT_src <- paste(path_base, "demo/CT_functions.R", sep="")
 sim_src <- paste(path_base, "demo/simulation_spatial_data.R", sep="")
-map_out <- "/sciclone/home00/geogdan/jM/"
+map_out <- "/sciclone/home00/geogdan/M2/"
 
 
 #detach("package:MatchIt", unload=TRUE)

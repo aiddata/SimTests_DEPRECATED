@@ -10,14 +10,14 @@ name = MPI.Get_processor_name()
 
 sim_path = '/sciclone/home00/geogdan/SimTests/demo/pySims_h.R'
 
-iterations = 120
+iterations = 1
 
 for c in range(0,size):
 	if rank == c:
 		for i in range((iterations*rank/size + 1), (iterations*(rank+1)/size+1)):
 			print "Worker - rank %d on %s."%(rank, name) 
 			print "i:%d"%i
-			out_path = '/sciclone/home00/geogdan/jTest/sim_'+str(i)+'.csv'
+			out_path = '/sciclone/home00/geogdan/S2/sim_'+str(i)+'.csv'
 			version = "1"
 			""" Init set up for the simulation 
 			Parameters
@@ -75,32 +75,32 @@ for c in range(0,size):
 			
 			"""
 			nrandom = "5000"#str(500 + random.random()*4000)
-			xvar_psill = "1.0"#str(0.1 + random.random()*0.9)
+			xvar_psill = "0.05"#str(0.1 + random.random()*0.9)
 			minx = "-45.0"
 			maxx = "45.0"
 			miny = "-22.5"
 			maxy = "22.5"
 
-			var1_vrange = "3000"#str(250 + random.random()*2500)
-			var1_error = "0.1"#str(0.1 + random.random()*0.9)
-			prop_acc = "1.0"#str(0.1 + random.random()*.75)
-			var1_error_vrange = "1000"#str(250 + random.random()*2500)
+			var1_vrange = "100000"
+			var1_error = str(0.05 + random.random()*0.95)
+			prop_acc = "1"#str(0.1 + random.random()*.75)
+			var1_error_vrange = "100000"#str(500 + random.random()*3000)
 			mod_error_magnitude = "0"#str(0.1 + random.random()*2)
-			trt_prc = str(0.05 + random.random() * 0.05)
+			trt_prc = "0.3"#str(0.3 + random.random() * 0.05)
 			theta = "1.0"
-			beta = "1.0"#str(0.2 + random.random()*5)
-			spill_vrange = "1500"#str(250 + random.random()*2500)
-			spill_magnitude= str(0.05 + random.random()*1.0)
-			cal= str(0.25 + random.random()*1.75)
+			beta = str(0.1 + random.random()*1.9)
+			spill_vrange = "100000"#str(250 + random.random()*2500)
+			spill_magnitude= "0"#str(0.05 + random.random()*1.0)
+			cal="5.0" #str(2.0 + random.random()*3)
 			sample_size = "0.5"#str(0.2 + random.random()*0.8)
-			tree_split_lim= "5"#str(5 + random.random()*5)
-			mod_error_vrange= "1000"#str(250 + random.random()*2500)
-			xvar_error_psill = "1"#str(0.1 + random.random()*0.9)
-			mod_error_psill = "1"#str(0.1 + random.random()*0.9)
-			trt_spill_sill = "1"#str(0.1 + random.random()*0.9)
-			tree_thresh = str(0.10 + random.random() * 0.30)
-			thresh_est = str(0.05 + random.random() * 0.95)
-			trtcon_overlap = str(0.2 + random.random() * 0.75)
+			tree_split_lim= "50"#str(5 + random.random()*5)
+			mod_error_vrange= "100000"#str(250 + random.random()*2500)
+			xvar_error_psill = ".05"#str(0.1 + random.random()*0.9)
+			mod_error_psill = ".05"#str(0.1 + random.random()*0.9)
+			trt_spill_sill = ".05"#str(0.1 + random.random()*0.9)
+			tree_thresh = "0" #str(0.02 + random.random() * 0.05)
+			thresh_est = str(0.05 + random.uniform(-1,1) * 0.95)
+			trtcon_overlap = str(0.1 + random.random() * 0.8)
 			
 			outputList = [("version: ",version),("nrandom: ",nrandom),("xvar_psill: ",xvar_psill),("minx: ",minx),
 			("maxx: ",maxx),("miny: ", miny),("maxy: ",maxy),("var1_vrange: ",var1_vrange),("var1_error: ",var1_error),
